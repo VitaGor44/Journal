@@ -65,11 +65,11 @@ def create_table(journal):
     return table
 
 
-@app.route('/')
-def index(main=None):
-    return render_template('index_06_05_22.html', name=main)
+# @app.route('/')
+# def index(main=None):
+#     return render_template('index_06_05_22.html', name=main)
 
-@app.route('/home')
+@app.route('/')
 def home(main=None):
     journal = get_journal()
     table = create_table(journal)
