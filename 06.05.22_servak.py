@@ -65,15 +65,23 @@ def create_table(journal):
     return table
 
 
-# @app.route('/')
-# def index(main=None):
-#     return render_template('index_06_05_22.html', name=main)
-
 @app.route('/')
+def index(main=None):
+    return render_template('index_06_05_22.html', name=main)
+
+@app.route('/home')
 def home(main=None):
+    #
+    # journal = get_journal()
+    # table = create_table(journal)
+    return render_template('home.html', name=main) #, table=table)
+
+
+@app.route('/journal')
+def journal(main=None):
     journal = get_journal()
     table = create_table(journal)
-    return render_template('home.html', name=main, table=table)
+    return render_template('journal.html', name=main, table=table)
 
 @app.route('/check_user')
 def autorization():
