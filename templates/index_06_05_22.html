@@ -82,7 +82,7 @@
             var email = $("#email").val();
             var password = $("#password").val();
             console.log(email, password);
-            jQuery.get('http://127.0.0.1:5000/check_user', {'email': email, 'password': password}).done(function() {
+            $.get('http://127.0.0.1:5000/check_user', {'email': email, 'password': password}).done(function() {
                 alert('Добро пожаловать');
                 window.location.href='http://127.0.0.1:5000/home';
             }).fail(function() {
