@@ -1,7 +1,9 @@
 import flask
 from flask import Flask
+from flask import jsonify
 from flask import request, abort
-from flask import render_template, Response
+from flask import render_template
+from flask import Response
 from random import randint, uniform
 import psycopg2
 
@@ -104,6 +106,32 @@ def autorization():
         resp = flask.Response('Fail', status=400)
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
+
+@app.route('/search_student')
+def search_student():
+    if request.method == 'GET':
+        number = request.args.get('number')
+        bio = request.args.get('bio')
+
+        try:
+            conn = connect()
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM journal WHERE student_id = " + number)
+            student = cursor.fetchone()
+
+            resp = {
+                'facult': student[2],
+                'special': student[3],
+                'curse': student[4],
+                'prof_aduc': student[5],
+            }
+            return jsonify(resp)
+
+        except Exception as error:
+            print(error)
+
+
+
 
 
 if __name__ == '__main__':
