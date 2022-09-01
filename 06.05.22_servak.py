@@ -4,7 +4,8 @@ from flask import jsonify
 from flask import request, abort
 from flask import render_template
 from flask import Response
-from random import randint, uniform
+from random import randint
+from random import uniform
 import psycopg2
 
 app = Flask(__name__)
@@ -123,12 +124,18 @@ def search_student():
                 'facult': student[2],
                 'special': student[3],
                 'curse': student[4],
-                'prof_aduc': student[5],
+                'format_stady': student[5],
+                'prof_education': student[6],
+                'grade': student[7]
             }
             return jsonify(resp)
 
         except Exception as error:
             print(error)
+
+@app.route('/delete_student')
+def delete_student():
+    pass
 
 if __name__ == '__main__':
     app.run(debug=True)

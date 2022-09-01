@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="static/css/calendar_style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>Домашняя страница</title>
 </head>
 <body>
@@ -56,30 +58,30 @@
           <div class="row row-cols-3">
                 <div class="col-4">
                     <div class="p-3 border bg-light">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text" id="inputGroup-sizing-lg">Номер студента</span>
-                            <input type="text" id="input_number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-                        </div>
 
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text" id="inputGroup-sizing-lg">ФИО</span>
-                            <input type="text" id="input_bio" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-                        </div>
-
-                        <button type="button" id="search_student" class="btn btn-primary btn-lg">Поиск</button>
+                        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+                            <div class="calendar-wrapper">
+                                <button id="btnPrev" type="button">Предыдущий</button>
+                                <button id="btnNext" type="button">Следующий</button>
+                            <div id="divCal"></div>
+                            </div>
                     </div>
-
-<!--                    <div class="col-4">-->
-<!--                        <div class="p-3 border bg-light">-->
-<!--                            <div class="input-group">-->
-<!--                                <span class="input-group-text">Дополнительные сведения</span>-->
-<!--                                <textarea class="form-control bg-light" aria-label="With textarea"></textarea>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
 
                 <div class="col-4">
+
+                     <div class="input-group input-group-lg">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Номер студента</span>
+                        <input type="text" id="input_number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                    </div>
+
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">ФИО</span>
+                        <input type="text" id="input_bio" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                    </div>
+
+                    <button type="button" id="search_student" class="btn btn-primary btn-lg">Поиск</button>
+
                     <div class="p-3 border bg-light">
                         <label for="select_facultet">Факультет</label>
                         <select class="form-select" id="select_facultet" aria-label="Default select example">
@@ -90,7 +92,7 @@
                             <option value="4">Engineering</option>
                             <option value="5">GydroMilioration</option>
                             <option value="6">Economy</option>
-                            <option value="6">Accounting</option>
+                            <option value="7">Accounting</option>
                         </select>
                     </div>
                     <div class="p-3 border bg-light">
@@ -110,13 +112,16 @@
                             <option value="11">environmental management</option>
                             <option value="12">land management</option>
                             <option value="13">hydromelioration</option>
-                            <option value="14">Technical systems</option>
+                            <option value="14">technical systems</option>
                             <option value="15">electrical equipment</option>
                             <option value="16">technological equipment</option>
                             <option value="17">finance and credit</option>
                             <option value="18">accounting</option>
                         </select>
                     </div>
+                </div>
+                <div class="col-4">
+
                     <div class="p-3 border bg-light">
                         <div class="p-3 border bg-light">
                             <label for="select_curs">Курс</label>
@@ -130,8 +135,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="col-4">
+
                     <div class="p-3 border bg-light">
                         <div class="p-3 border bg-light">
                             <label for="select_format">Формат обучения</label>
@@ -158,13 +162,13 @@
 
     <div class="container-fluid">
 
-
-
         <button type="button" class="btn btn-primary btn-lg float-sm-right" onclick="myFunction()">Сохранить изменения</button>
+        <button type="button" id="button_del" class="btn btn-danger btn-lg float-sm-right" onclick="myFunction_del()">Удалить изменения</button>
 
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </div>
+
     <script>
         function myFunction() {
                 Swal.fire({
@@ -184,27 +188,292 @@
         }
     </script>
     <script>
+        function myFunction_del() {
+                Swal.fire({
+              title: 'Вы уверены, что хотите удалить информацию?',
+              text: "Вы не сможете восстановить информацию!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Да! Удалить данные!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'Удалить!',
+                  'Информация была удалена.',
+                  'Успешно!'
+                )
+              }
+            })
+    }
+
+    </script>
+    <script>
         $("#search_student").click(function() {
             var number = $("#input_number").val();
             var bio = $("#input_bio").val();
             console.log(number, bio);
             $.get('http://127.0.0.1:5000/search_student', {'number': number, 'bio': bio}).done(function(data) {
                 var facult = data['facult'];
-                if (facult == 'BTF') {
-                    $('#select_facultet').val('2');
+                var special = data['special'];
+                var curse = data['curse'];
+                var format_stady = data['format_stady'];
+                console.log(data['facult']);
+                for (var key in data) {
+
+                    if (data['facult'] == 'Agronomy') {
+                        $('#select_facultet').val('1');
+                    } else if (data['facult'] == 'BTF') {
+                        $('#select_facultet').val('2');
+                    } else if (data['facult'] == 'Veterinary') {
+                        $('#select_facultet').val('3');
+                    } else if (data['facult'] == 'Engineering') {
+                        $('#select_facultet').val('4');
+                    } else if (data['facult'] == 'GydroMilioration') {
+                        $('#select_facultet').val('5');
+                    } else if (data['facult'] == 'Economy') {
+                        $('#select_facultet').val('6');
+                    } else if (data['facult'] == 'Accounting') {
+                        $('#select_facultet').val('7');
+                    };
+
+                    if (data['format_stady'] == 'бюджет') {
+                        $('#select_format').val('1');
+                    } else if (data['format_stady'] == 'коммерческий') {
+                        $('#select_format').val('2');
+                    } else if (data['format_stady'] == 'хоздоговор') {
+                        $('#select_format').val('3');
+                    } else if (data['format_stady'] == 'договор МСХ') {
+                        $('#select_format').val('4');
+                    };
+
+
+                    if (data['prof_education'] == 'Имеется') {
+                        $('#flexCheckIndeterminate').prop('checked', true);
+                    } else {
+                        $('#flexCheckIndeterminate').prop('checked', false);
+                    };
+
+                    if (key == 'special') {
+                        if (special == 'agronomy') {
+                            $('#select_specialization').val('1');
+                        } else if (special == 'plant protection'){
+                            $('#select_specialization').val('2');
+                        } else if (special == 'zootechnik'){
+                            $('#select_specialization').val('3');
+                        } else if (special == 'technology'){
+                            $('#select_specialization').val('4');
+                        } else if (special == 'food technology') {
+                            $('#select_specialization').val('5');
+                        } else if (special == 'veterinary') {
+                            $('#select_specialization').val('6');
+                        } else if (special == 'epidemiologist') {
+                            $('#select_specialization').val('7');
+                        } else if (special == 'economy') {
+                            $('#select_specialization').val('8');
+                        } else if (special == 'management') {
+                            $('#select_specialization').val('9');
+                        } else if (special == 'state and municipal administration') {
+                            $('#select_specialization').val('10');
+                        } else if (special == 'environmental management') {
+                            $('#select_specialization').val('11');
+                        } else if (special == 'land management') {
+                            $('#select_specialization').val('12');
+                        } else if (special == 'hydromelioration') {
+                            $('#select_specialization').val('13');
+                        } else if (special == 'technical systems') {
+                            $('#select_specialization').val('14');
+                        } else if (special == 'electrical equipment') {
+                            $('#select_specialization').val('15');
+                        } else if (special == 'technological equipment') {
+                            $('#select_specialization').val('16');
+                        } else if (special == 'finance and credit') {
+                            $('#select_specialization').val('17');
+                        } else if (special == 'accounting') {
+                            $('#select_specialization').val('18');
+                        }
+                    } else if (key == 'curse') {
+                        if (curse == '1') {
+                            $('#select_curs').val('1');
+                        } else if (curse == '2') {
+                            $('#select_curs').val('2');
+                        } else if (curse == '3') {
+                            $('#select_curs').val('3');
+                        } else if (curse == '4') {
+                            $('#select_curs').val('4');
+                        } else if (curse == '5') {
+                            $('#select_curs').val('5');
+                        }
+                    };
                 }
+
+
             }).fail(function() {
                 alert('Sorry');
             })
         })
     </script>
+
     <script>
-        function get_input() {
-            var facultet = $("#select_facultet option:selected").text();
-            var specialization = $("#select_specialization option:selected").text();
-            var curs = $("#select_curs option:selected").text();
-            var format = $("#select_format option:selected").text();
+        var Cal = function(divId) {
+          //Сохраняем идентификатор div
+          this.divId = divId;
+
+          // Дни недели с понедельника
+          this.DaysOfWeek = [
+            'Пн',
+            'Вт',
+            'Ср',
+            'Чтв',
+            'Птн',
+            'Суб',
+            'Вск'
+          ];
+
+          // Месяцы начиная с января
+          this.Months =['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+
+          //Устанавливаем текущий месяц, год
+          var d = new Date();
+
+          this.currMonth = d.getMonth('9');
+          this.currYear = d.getFullYear('22');
+          this.currDay = d.getDate('3');
+        };
+
+        // Переход к следующему месяцу
+        Cal.prototype.nextMonth = function() {
+          if ( this.currMonth == 11 ) {
+            this.currMonth = 0;
+            this.currYear = this.currYear + 1;
+          }
+          else {
+            this.currMonth = this.currMonth + 1;
+          }
+          this.showcurr();
+        };
+
+        // Переход к предыдущему месяцу
+        Cal.prototype.previousMonth = function() {
+          if ( this.currMonth == 0 ) {
+            this.currMonth = 11;
+            this.currYear = this.currYear - 1;
+          }
+          else {
+            this.currMonth = this.currMonth - 1;
+          }
+          this.showcurr();
+        };
+
+        // Показать текущий месяц
+        Cal.prototype.showcurr = function() {
+          this.showMonth(this.currYear, this.currMonth);
+        };
+
+
+
+        // Показать месяц (год, месяц)
+        Cal.prototype.showMonth = function(y, m) {
+
+          var d = new Date()
+          // Первый день недели в выбранном месяце
+          , firstDayOfMonth = new Date(y, m, 7).getDay()
+          // Последний день выбранного месяца
+          , lastDateOfMonth =  new Date(y, m+1, 0).getDate()
+          // Последний день предыдущего месяца
+          , lastDayOfLastMonth = m == 0 ? new Date(y-1, 11, 0).getDate() : new Date(y, m, 0).getDate();
+
+
+          var html = '<table>';
+
+          // Запись выбранного месяца и года
+          html += '<thead><tr>';
+          html += '<td colspan="7">' + this.Months[m] + ' ' + y + '</td>';
+          html += '</tr></thead>';
+
+
+          // заголовок дней недели
+          html += '<tr class="days">';
+          for(var i=0; i < this.DaysOfWeek.length;i++) {
+            html += '<td>' + this.DaysOfWeek[i] + '</td>';
+          }
+          html += '</tr>';
+
+          // Записываем дни
+          var i=1;
+          do {
+
+            var dow = new Date(y, m, i).getDay();
+
+            // Начать новую строку в понедельник
+            if ( dow == 1 ) {
+              html += '<tr>';
+            }
+
+            // Если первый день недели не понедельник показать последние дни предидущего месяца
+            else if ( i == 1 ) {
+              html += '<tr>';
+              var k = lastDayOfLastMonth - firstDayOfMonth+1;
+              for(var j=0; j < firstDayOfMonth; j++) {
+                html += '<td class="not-current">' + k + '</td>';
+                k++;
+              }
+            }
+
+            // Записываем текущий день в цикл
+            var chk = new Date();
+            var chkY = chk.getFullYear();
+            var chkM = chk.getMonth();
+            if (chkY == this.currYear && chkM == this.currMonth && i == this.currDay) {
+              html += '<td class="today">' + i + '</td>';
+            } else {
+              html += '<td class="normal">' + i + '</td>';
+            }
+            // закрыть строку в воскресенье
+            if ( dow == 0 ) {
+              html += '</tr>';
+            }
+            // Если последний день месяца не воскресенье, показать первые дни следующего месяца
+            else if ( i == lastDateOfMonth ) {
+              var k=1;
+              for(dow; dow < 7; dow++) {
+                html += '<td class="not-current">' + k + '</td>';
+                k++;
+              }
+            }
+
+            i++;
+          }while(i <= lastDateOfMonth);
+
+          // Конец таблицы
+          html += '</table>';
+
+          // Записываем HTML в div
+          document.getElementById(this.divId).innerHTML = html;
+        };
+
+        // При загрузке окна
+        window.onload = function() {
+
+          // Начать календарь
+          var c = new Cal("divCal");
+          c.showcurr();
+
+          // Привязываем кнопки «Следующий» и «Предыдущий»
+          getId('btnNext').onclick = function() {
+            c.nextMonth();
+          };
+          getId('btnPrev').onclick = function() {
+            c.previousMonth();
+          };
         }
+
+        // Получить элемент по id
+        function getId(id) {
+          return document.getElementById(id);
+        }
+
     </script>
 </body>
 
